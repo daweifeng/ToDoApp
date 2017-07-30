@@ -37,6 +37,11 @@ const menuTemplate = [
                 label: 'New ToDo',
                 click() { createAddWindow(); }
             }, {
+                label: 'Clear ToDos',
+                click() {
+                    mainWindow.webContents.send('todo:delete');
+                }
+            }, {
                 label: 'Quit',
                 accelerator: (() => {
                     if (process.platform === 'darwin') {
@@ -62,6 +67,8 @@ if (process.env.NODE_ENV !== 'production') {
         label: 'View',
         submenu: [
             {
+                role: 'reload'
+            },{
                 label: 'Dev Tool',
                 accelerator: process.platform === 'darwin' ? 'Command+Alt+I' : 'Ctrl+Shift+I',
                 click(item, focusedWindow) {
